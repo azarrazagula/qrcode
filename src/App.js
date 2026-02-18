@@ -1,8 +1,9 @@
-function App() {
+const App = () => {
   return (
-    <>
-      <h1 className="text-3xl font-bold underline text-center">React App</h1>
-    </>
+    <div className="App">
+      <h1>QR Code Generator</h1>
+      {/* Add your QR code generator component here */}
+    </div>
   );
 }
 
