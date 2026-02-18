@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { QRCodeCanvas } from "qrcode.react";
 import logo from "./assets/AiTechie.png";
+import ReusableInput from "./components/reusableInput";
 
 const App = () => {
   const [url, setUrl] = useState("");
@@ -20,7 +21,7 @@ const App = () => {
     (e) => {
       if (e.key === "Enter") handleGenerate();
     },
-    [handleGenerate]
+    [handleGenerate],
   );
 
   const handleDownload = useCallback(
@@ -67,7 +68,7 @@ const App = () => {
         URL.revokeObjectURL(link.href);
       }
     },
-    [bgColor, qrSize]
+    [bgColor, qrSize],
   );
 
   const handleClear = useCallback(() => {
@@ -98,39 +99,26 @@ const App = () => {
           QR Code Generator
         </h1>
         <p className="mt-2 text-gray-500 text-sm sm:text-base max-w-md mx-auto">
-          Paste any link — Google Maps, website, or anything else — and generate a free, permanent QR code instantly.
+          Paste any link — Google Maps, website, or anything else — and generate
+          a free, permanent QR code instantly.
         </p>
       </div>
 
       {/* Main Card */}
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-8 space-y-6">
         {/* URL Input */}
-        <div>
-          <label
-            htmlFor="url-input"
-            className="block text-sm font-semibold text-gray-700 mb-1"
-          >
-            Enter or paste a link
-          </label>
-          <div className="flex gap-2">
-            <input
-              id="url-input"
-              type="url"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="https://maps.google.com/..."
-              className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition placeholder:text-gray-400"
-            />
-            <button
-              onClick={handleGenerate}
-              disabled={!url.trim()}
-              className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-500 text-white font-semibold text-sm sm:text-base hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-all shrink-0"
-            >
-              Generate
-            </button>
-          </div>
-        </div>
+        <ReusableInput
+          id="url-input"
+          label="Enter or paste a link"
+          type="url"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="https://maps.google.com/..."
+          buttonText="Generate"
+          onButtonClick={handleGenerate}
+          buttonDisabled={!url.trim()}
+        />
 
         {/* Customization Options */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -160,9 +148,7 @@ const App = () => {
                 onChange={(e) => setFgColor(e.target.value)}
                 className="w-9 h-9 rounded cursor-pointer border border-gray-300"
               />
-              <span className="text-xs text-gray-500 uppercase">
-                {fgColor}
-              </span>
+              <span className="text-xs text-gray-500 uppercase">{fgColor}</span>
             </div>
           </div>
           <div>
@@ -176,9 +162,7 @@ const App = () => {
                 onChange={(e) => setBgColor(e.target.value)}
                 className="w-9 h-9 rounded cursor-pointer border border-gray-300"
               />
-              <span className="text-xs text-gray-500 uppercase">
-                {bgColor}
-              </span>
+              <span className="text-xs text-gray-500 uppercase">{bgColor}</span>
             </div>
           </div>
         </div>
@@ -188,7 +172,7 @@ const App = () => {
           <div className="flex flex-col items-center space-y-5 pt-2">
             <div
               ref={qrRef}
-              className="p-4 bg-white rounded-xl border-2 border-dashed border-gray-200 inline-block"
+              className=" bg-[linear-gradient(135deg,#8b5cf6,#3b82f6,#10b981,#f59e0b,#ef4444,#ec4899)] p-10 border-2 rounded-xl border-solid border-gray-200 inline-block"
             >
               <QRCodeCanvas
                 value={qrValue}
@@ -197,7 +181,11 @@ const App = () => {
                 fgColor={fgColor}
                 level="H"
                 includeMargin={true}
+                className="rounded-[40px] "
               />
+              <p className="text-white text-xl mt-2 text-center font-bold ">
+                SCAN HERE
+              </p>
             </div>
 
             {/* Encoded URL preview */}
@@ -241,7 +229,8 @@ const App = () => {
       {/* Footer */}
       <div className="mt-8 text-center space-y-1">
         <p className="text-xs text-gray-400">
-          QR codes generated here are static &amp; permanent — they never expire.
+          QR codes generated here are static &amp; permanent — they never
+          expire.
         </p>
         <p className="text-xs text-gray-400">
           Built by{" "}
