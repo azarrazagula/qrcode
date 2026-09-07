@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# AiTechies QR Studio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An [AiTechies Studio](https://ansaribrahim.me/) product. Free, print-ready QR code cards for shops and small businesses. Pick a platform, paste your link, download a card designed for the counter, door or table.
 
-## Available Scripts
+**Supported:** Google Review · Google Maps · Instagram · WhatsApp · Facebook · YouTube · TikTok · X · Threads · LinkedIn · Telegram · Snapchat · Pinterest · Spotify · Website · Digital menu · UPI payment · Zomato · Swiggy · Wi-Fi · Phone · SMS · Email · Contact card (vCard) · Play Store · App Store · any link · plain text.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Smart inputs** — type `@yourshop` or paste a full profile link; phone numbers get the country code; Google Place IDs become review links; Wi-Fi, UPI and vCard payloads are built and escaped correctly.
+- **Designer QR codes** — rounded-dot modules, brand-coloured finder eyes, platform icon or your logo in the centre, three dot styles. Drawn as plain SVG primitives (no raster), so they stay crisp at any print size.
+- **Print-ready cards** — five templates (Classic, Bold, Minimal, Night, Sticker) in A6, A5, A4, square sticker, landscape counter stand and 1080×1920 phone-story sizes. Everything is rendered as SVG, so the preview *is* the print.
+- **Exports** — PNG/JPG at 300 DPI, true vector SVG, PDF via the print dialog, plain QR (PNG/JPG/SVG), and native share to WhatsApp on phones.
+- **Print sheets** — one card per page at the exact physical size, or fill an A4 sheet with as many copies as fit, with cut lines.
+- **Branding** — platform icon or your own logo in the centre of the code, brand-colour palettes, contrast warning when a colour combination will scan badly.
+- **Recent designs** are kept in the browser; the current design is also encoded in the URL so it can be bookmarked or sent to a print shop.
+- **Private** — nothing leaves the browser. No accounts, no server, static codes that never expire.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Development
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+npm start        # http://localhost:3000
+npm test         # unit tests for the link builders
+npm run build    # production build in ./build
+```
 
-### `npm test`
+Stack: Create React App, React 19, Tailwind CSS 3, `qrcode-generator`, `react-icons`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project layout
 
-### `npm run build`
+```
+src/
+  App.jsx                  state, URL sharing, print orchestration
+  data/platforms.js        platform presets (icon, colour, fields, builder, CTA)
+  data/design.js           templates, physical formats, defaults
+  lib/builders.js          input → QR payload (URLs, wa.me, WIFI:, upi://, vCard…)
+  lib/export.js            SVG serialisation, rasterising, download, share
+  lib/print.js             A4 sheet layout maths
+  lib/share.js             URL-hash state encoding
+  lib/storage.js           recent designs (localStorage)
+  components/QrArt.jsx     designer QR renderer (dots, eyes, logo excavation)
+  components/QrCard.jsx    the SVG card renderer (all templates & formats, AiTechies signature)
+  components/*             picker, form, design panel, preview, print sheet, history
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Deploying
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The build is fully static. Any static host works (GitHub Pages, Netlify, Vercel, Cloudflare Pages). Set `"homepage"` in `package.json` if you serve from a sub-path.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+© AITechies Studio · Made with ❤️ in Tamil Nadu, India. Brand identity (logo, colours, fonts) is shared with the company site; see `src/data/company.js` and `src/components/Brand.jsx`. Third-party brand names and logos belong to their respective owners.
