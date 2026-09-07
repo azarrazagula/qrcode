@@ -451,8 +451,9 @@ export default function QrCard({
     );
   }
 
-  const outW = width ?? (height ? (height * W) / H : undefined);
-  const outH = height ?? (width ? (width * H) / W : undefined);
+  const num = (v) => (typeof v === "number" ? v : undefined);
+  const outW = width ?? (num(height) ? (num(height) * W) / H : undefined);
+  const outH = height ?? (num(width) ? (num(width) * H) / W : undefined);
 
   return (
     <svg
